@@ -1,11 +1,10 @@
-from selenium import webdriver
-class Application2:
-    def __init__(self):
-        self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(30)
 
-    def add_new_contact(self, contact):
-        wd = self.wd
+class ContactHelper:
+    def __init__(self, app):
+        self.app = app
+
+    def add(self, contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -78,31 +77,6 @@ class Application2:
         wd.find_element_by_name("notes").send_keys(contact.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_id("container").click()
-
-    def select_home(self):
-        wd = self.wd
-        wd.find_element_by_link_text("home").click()
-
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
-
     def select_add_new(self):
-        wd = self.wd
+        wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-
-    def login(self, username, password):
-        wd = self.wd
-        # login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_id("LoginForm").submit()
-    def open_home_page(self):
-        wd = self.wd
-        # open home page
-        wd.get("http://localhost/addressbook/")
-    def destroy2(self):
-        self.wd.quit()
