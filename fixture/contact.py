@@ -77,6 +77,15 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_id("container").click()
 
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit delete via xpath
+        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
+        # window selection accept
+        wd.switch_to.alert.accept()
+
     def select_add_new(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
