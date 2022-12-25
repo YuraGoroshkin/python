@@ -1,6 +1,7 @@
 class GroupHelper:
     def __init__(self, app):
         self.app = app
+
     def return_to_groups_page(self):
         # return to groups page
         wd = self.app.wd

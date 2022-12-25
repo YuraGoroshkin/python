@@ -1,7 +1,9 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
-from fixture.group import  GroupHelper
-from fixture.contact import  ContactHelper
+from fixture.group import GroupHelper
+from fixture.contact import ContactHelper
+
+
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
@@ -9,7 +11,8 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
-# Перейти на home page с другой страницы
+
+    # Перейти на home page с другой страницы
     def select_home(self):
         wd = self.wd
         wd.find_element_by_link_text("home").click()
@@ -18,5 +21,6 @@ class Application:
         wd = self.wd
         # open home page
         wd.get("http://localhost/addressbook/")
+
     def destroy(self):
         self.wd.quit()

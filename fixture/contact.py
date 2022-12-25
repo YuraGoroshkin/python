@@ -1,4 +1,3 @@
-
 class ContactHelper:
     def __init__(self, app):
         self.app = app
@@ -77,6 +76,7 @@ class ContactHelper:
         wd.find_element_by_name("notes").send_keys(contact.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_id("container").click()
+
     def select_add_new(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
