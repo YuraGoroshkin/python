@@ -1,5 +1,5 @@
 class Contact:
-    def __init__(self, firstname, middlename, lastname, nickname, title, company, address, TelephoneHome, TelephoneMobile, TelephoneWork, TelephoneFax, email, email2, email3, homepage, byear, ayear, address2, phone2, notes):
+    def __init__(self, firstname, middlename, lastname, nickname, title, company, address, telephone_home, telephone_mobile, telephone_work, telephone_fax, email, email2, email3, homepage, byear, ayear, address2, phone2, notes):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -7,10 +7,10 @@ class Contact:
         self.title = title
         self.company = company
         self.address = address
-        self.home = TelephoneHome
-        self.mobile = TelephoneMobile
-        self.work = TelephoneWork
-        self.fax = TelephoneFax
+        self.home = telephone_home
+        self.mobile = telephone_mobile
+        self.work = telephone_work
+        self.fax = telephone_fax
         self.email = email
         self.email2 = email2
         self.email3 = email3
