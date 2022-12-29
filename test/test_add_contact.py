@@ -16,7 +16,6 @@ def test_contact_empty(app):
 
 
 def test_contact(app):
-    app.open_home_page()
     app.session.login(username="admin", password="secret")
     app.contact.select_add_new()
     app.contact.add(
