@@ -26,8 +26,10 @@ class Application:
         self.wd.quit()
 
     def is_valid(self):
+        # исключение при потери браузера
         try:
             self.wd.current_url
             return True
         except:
+            print("ERROR_БРАУЗЕР:нет доступа")
             return False
