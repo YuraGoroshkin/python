@@ -3,7 +3,7 @@ from model.contact import Contact
 
 
 def test_contact_empty(app):
-    app.contact.select_add_new()
+    app.contact.open_add_new()
     app.contact.add(
         Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", address="",
                 telephone_home="",
@@ -14,7 +14,7 @@ def test_contact_empty(app):
 
 
 def test_contact(app):
-    app.contact.select_add_new()
+    app.contact.open_add_new()
     app.contact.add(
         Contact(firstname="Yura", middlename="middlename", lastname="Goroshkin", nickname="nickname", title="Title",
                 company="Company", address="Address", telephone_home="88005553225", telephone_mobile="88005553225",

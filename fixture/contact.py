@@ -31,7 +31,7 @@ class ContactHelper:
         # select update
         wd.find_element_by_name("update").click()
 
-    def select_add_new(self):
+    def open_add_new(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("firstname")) > 0):
             # open groups page

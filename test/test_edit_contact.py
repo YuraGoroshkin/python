@@ -5,7 +5,7 @@ from model.contact import Contact
 def test_edit_first_contact(app):
     app.select_home()
     if app.contact.count() == 0:
-        app.contact.select_add_new()
+        app.contact.open_add_new()
         app.contact.add(
             Contact(firstname="Yura", middlename="middlename", lastname="Goroshkin", nickname="nickname", title="Title",
                     company="Company", address="Address", telephone_home="88005553225", telephone_mobile="88005553225",
