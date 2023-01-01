@@ -15,7 +15,9 @@ class Application:
     # Перейти на home page с другой страницы
     def select_home(self):
         wd = self.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("selected[]")) > 0):
+            # open home
+            wd.find_element_by_link_text("home").click()
 
     def open_home_page(self):
         wd = self.wd

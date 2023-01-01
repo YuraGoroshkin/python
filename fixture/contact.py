@@ -33,7 +33,9 @@ class ContactHelper:
 
     def select_add_new(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("firstname")) > 0):
+            # open groups page
+            wd.find_element_by_link_text("add new").click()
 
     def select_content(self):
         wd = self.app.wd
