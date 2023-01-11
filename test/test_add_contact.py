@@ -19,7 +19,6 @@ def test_contact_empty(app):
 def test_contact(app):
     old_contacts = app.contact.get_contact_list()
     app.contact.open_add_new()
-    app.contact.open_add_new()
     app.contact.add(
         Contact(firstname="Yura", middlename="middlename", lastname="Goroshkin", nickname="nickname", title="Title",
                 company="Company", address="Address", telephone_home="88005553225", telephone_mobile="88005553225",
