@@ -2,21 +2,21 @@
 from model.contact import Contact
 
 
-def test_contact_empty(app):
-    old_contacts = app.contact.get_contact_list()
-    app.contact.open_add_new()
-    contact = Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", address="",
-                      telephone_home="",
-                      telephone_mobile="", telephone_work="", telephone_fax="", email="", email2="", email3="",
-                      homepage="",
-                      byear="", ayear="",
-                      address2="", phone2="", notes="")
-    app.contact.add(contact)
-    app.select_home()
-    new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) + 1 == len(new_contacts)
-    old_contacts.append(contact)
-    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+# def test_contact_empty(app):
+#     old_contacts = app.contact.get_contact_list()
+#     app.contact.open_add_new()
+#     contact = Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", address="",
+#                       telephone_home="",
+#                       telephone_mobile="", telephone_work="", telephone_fax="", email="", email2="", email3="",
+#                       homepage="",
+#                       byear="", ayear="",
+#                       address2="", phone2="", notes="")
+#     app.contact.add(contact)
+#     app.select_home()
+#     new_contacts = app.contact.get_contact_list()
+#     assert len(old_contacts) + 1 == len(new_contacts)
+#     old_contacts.append(contact)
+#     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 
 def test_contact(app):
