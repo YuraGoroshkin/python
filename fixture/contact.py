@@ -87,9 +87,25 @@ class ContactHelper:
 
     def get_contact_list(self):
         wd = self.app.wd
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            title = element.find_element_by_name("selected[]").get_attribute("title")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(firstname=title, id=id))
-        return contacts
+        all_list_contacts = []
+        for element in wd.find_elements_by_css_selector("td"):
+            # получаем содержимое каждого td, где есть текст -> в виде текста
+            masiv_element = element.text
+            # клеем содержимое в виде общего массива из td.text
+            all_list_contacts.append(masiv_element)
+        # в одном поле контакт 10 td - поэтому делим общий массив элементов по 10 и записываем массивы в массив
+        split_size = 10
+        splited_list = [all_list_contacts[i:i + split_size] for i in range(0, len(all_list_contacts), split_size)]
+        # количество контактов на странице
+        size_contacts_in_page = len(splited_list)
+        contact = []
+        # обратились ко всем под массивам
+        # for contact in splited_list:
+        #     firstname = contact[2]
+        #     lastname = contact[1]
+        #     contact.append(Contact(firstname=firstname, lastname=lastname))
+        # получение id
+        # for element in wd.find_elements_by_name("entry"):
+        #     id = element.find_element_by_name("selected[]").get_attribute("id")
+        #     contact.append(id)
+        return [splited_list, size_contacts_in_page]
