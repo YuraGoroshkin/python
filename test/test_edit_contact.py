@@ -5,8 +5,9 @@ from model.contact import Contact
 def test_edit_first_contact(app):
     app.select_home()
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="correct33334")
+    contact = Contact(firstname="correct33334", lastname="Test")
     contact.id = old_contacts[0].id
+    print(contact.id)
     if app.contact.count() == 0:
         app.contact.open_add_new()
         app.contact.add(
