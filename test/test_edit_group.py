@@ -10,7 +10,7 @@ def test_edit_name(app):
         app.group.create(Group(name='for_edit'))
     app.group.edit_first_group(group)
     new_groups = app.group.get_group_list()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     old_groups[0] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
