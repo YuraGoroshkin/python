@@ -1,8 +1,8 @@
 from model.contact import Contact
 import time
+from random import randrange
 
-
-def test_delete_first_contact(app):
+def test_delete_some_contact(app):
     app.select_home()
     old_contacts = app.contact.get_contact_list()
     if app.contact.count() == 0:

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
+from random import randrange
 
-
-def test_edit_first_contact(app):
+def test_edit_some_contact(app):
     app.select_home()
     old_contacts = app.contact.get_contact_list()
     contact = Contact(firstname="correct33334", lastname="Test")

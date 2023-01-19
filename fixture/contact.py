@@ -21,6 +21,8 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+
+
     def edit_first_contact(self, contact):
         wd = self.app.wd
         # select first contact
