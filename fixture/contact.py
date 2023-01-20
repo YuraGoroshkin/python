@@ -38,8 +38,10 @@ class ContactHelper:
         wd = self.app.wd
         # select first contact
         self.select_contact_by_index(index)
+        # +2 потому-что первый элемент на редактирование = 2 в блоке tr
+        index_pencil = str(index + 2)
         # submit edit via xpath
-        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[8]/a/img').click()
+        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[' + index_pencil + ']/td[8]/a/img').click()
         self.contact_form(contact)
         self.select_content()
         # select update
