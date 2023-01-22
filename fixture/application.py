@@ -5,12 +5,21 @@ from fixture.contact import ContactHelper
 
 
 class Application:
-    def __init__(self):
-        self.wd = webdriver.Firefox()
+    # параметры запуска (браузер)
+    def __init__(self, browser, base_url):
+        if browser == "firefox":
+            self.wd = webdriver.Firefox()
+        elif browser == "chrome":
+            self.wd = webdriver.Chrome()
+        elif browser == "ie":
+            self.wd = webdriver.Ie()
+        else:
+            raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(0.3)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+        self.base_url = base_url
 
     # Перейти на home page с другой страницы
     def select_home(self):
@@ -20,9 +29,10 @@ class Application:
             wd.find_element_by_link_text("home").click()
 
     def open_home_page(self):
+        # параметры запуска (стенд)
         wd = self.wd
         # open home page
-        wd.get("http://localhost/addressbook/")
+        wd.get(self.base_url)
 
     def destroy(self):
         self.wd.quit()
