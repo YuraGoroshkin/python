@@ -33,7 +33,8 @@ class Contact:
         return "%s:%s:%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % \
             (self.id, self.firstname, self.lastname, self.middlename, self.nickname, self.title, self.company,
              self.address, self.home, self.mobile, self.work, self.fax, self.email, self.email2,
-             self.email3, self.homepage, self.byear, self.ayear, self.address2,
+             self.email3, self.homepage, self.byear, self.ayear,
+             self.address2,
              self.phone2, self.notes)
 
     def __eq__(self, other):
