@@ -28,7 +28,7 @@ def clear(s):
 
 
 def clear_email(s):
-    return re.sub("[  ]", "", s)
+    return " ".join(s.split())
 
 
 def merge_phones_like_on_home_page(contact):
