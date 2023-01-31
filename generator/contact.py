@@ -7,7 +7,7 @@ import sys
 from model.contact import Contact
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
@@ -62,7 +62,7 @@ testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title
                        homepage=random_string("homepage", 10), byear=random_year(),
                        ayear=random_year(), address2=random_string("address2", 10),
                        phone2=random_phone_number(), notes=random_string("notes", 10))
-               for i in range(10)]
+               for i in range(n)]
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
