@@ -28,7 +28,7 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname, middlename, nickname, title, company, address, home, mobile, work, fax, email, email2, email3, homepage, byear, ayear, address2, phone2, notes from addressbook")
+            cursor.execute("select id, firstname, lastname, middlename, nickname, title, company, address, home, mobile, work, fax, email, email2, email3, homepage, byear, ayear, address2, phone2, notes from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
                 (id, firstname, lastname, middlename, nickname, title, company,
                  address, home, mobile, work, fax, email, email2,
