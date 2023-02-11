@@ -1,6 +1,6 @@
 from model.contact import Contact
 import re
-
+from random import randrange
 
 class ContactHelper:
     def __init__(self, app):
@@ -61,6 +61,27 @@ class ContactHelper:
         # select update
         wd.find_element_by_name("update").click()
         self.contact_cache = None
+
+    def put_contact_by_index_to_group(self, index):
+        wd = self.app.wd
+        # select first contact
+        self.select_contact_by_index(index)
+        wd.find_element_by_name("to_group").click()
+        self.select_random_grop_from_list()
+        wd.find_element_by_name("add").click()
+        self.contact_cache = None
+
+    def select_random_grop_from_list(self):
+        wd = self.app.wd
+        # нашли все элементы выпадающего списка
+        number_select_group = str(randrange(len(wd.find_elements_by_xpath("//*[@id='content']/form[2]/div[4]/select/option"))))
+        if number_select_group == "0":
+            wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option").click()
+            group_id = wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option").get_attribute("value")
+        else:
+            wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").click()
+            group_id = wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").get_attribute("value")
+        return group_id
 
     def open_add_new(self):
         wd = self.app.wd
