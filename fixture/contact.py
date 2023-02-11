@@ -66,7 +66,6 @@ class ContactHelper:
         wd = self.app.wd
         # select first contact
         self.select_contact_by_index(index)
-        wd.find_element_by_name("to_group").click()
         self.select_random_grop_from_list()
         wd.find_element_by_name("add").click()
         self.contact_cache = None

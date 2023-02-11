@@ -19,8 +19,6 @@ def test_add_contact_to_some_group(app, db, check_ui):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name='the_only'))
         app.open_home_page()
-    # if len(db.get_group_list()) == 0:
-    #     app.group.create(Group(name='for_delete'))
     old_contacts = db.get_contact_list()
     index = randrange(len(old_contacts))
     app.contact.put_contact_by_index_to_group(index)
