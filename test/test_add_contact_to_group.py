@@ -7,7 +7,7 @@ from model.group import Group
 def test_add_contact_to_some_group(app, db, check_ui):
     # перешли на нужную страницу
     app.select_home()
-    # проверил контакт и группу ,если нет  то создал
+    # проверил контакт и группу, если нет  то создал
     if len(db.get_contact_list()) == 0:
         app.contact.open_add_new()
         app.contact.add(
@@ -24,10 +24,15 @@ def test_add_contact_to_some_group(app, db, check_ui):
     old_contacts = db.get_contact_list()
     # обозначил какой контакт будет выбран для теста
     index = randrange(len(old_contacts))
+    id = old_contacts[index].id
     # выбрать группу
-    #
-    app.contact.put_contact_by_index_to_group(index)
+    # app.contact.check_in_group_contact()
+    # добавил контакт в случайную группу
+    value_group = app.contact.put_contact_by_id_to_group(id)
     app.select_home()
+    tuple_contact_and_group = (id, value_group)
+    # id(contact) + group_id
+    list = db.address_in_groups()
     # assert len(old_contacts) == len(new_contacts)
     # if check_ui:
     #     assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
