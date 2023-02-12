@@ -5,7 +5,9 @@ from model.group import Group
 
 
 def test_add_contact_to_some_group(app, db, check_ui):
+    # перешли на нужную страницу
     app.select_home()
+    # проверил контакт и группу ,если нет  то создал
     if len(db.get_contact_list()) == 0:
         app.contact.open_add_new()
         app.contact.add(
@@ -20,7 +22,10 @@ def test_add_contact_to_some_group(app, db, check_ui):
         app.group.create(Group(name='the_only'))
         app.open_home_page()
     old_contacts = db.get_contact_list()
+    # обозначил какой контакт будет выбран для теста
     index = randrange(len(old_contacts))
+    # выбрать группу
+    #
     app.contact.put_contact_by_index_to_group(index)
     app.select_home()
     # assert len(old_contacts) == len(new_contacts)
