@@ -72,13 +72,16 @@ class ContactHelper:
         self.contact_cache = None
         return value
 
-    def check_in_group_contact(self):
+    def check_in_group_contact(self, number_group):
         wd = self.app.wd
-        group_id = str(randrange(start=3, stop=1 + len(wd.find_elements_by_xpath("// *[ @ id = 'right'] / select / option"))))
-        value_group = wd.find_element_by_xpath("//*[@id='right']/select/option[" + group_id + "]").get_attribute("value")
-        # если захочется перейти в ту группу и может что-то сделать
-        # wd.find_element_by_xpath("//*[@id='right']/select/option[" + group_id + "]").click()
-        return value_group
+        list = []
+        group_id = str(int(number_group) + 2)
+        # перейти в ту группу, в которую ранее был добавлен контакт
+        wd.find_element_by_xpath("//*[@id='right']/select/option[" + group_id + "]").click()
+        for element in wd.find_elements_by_name("entry"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            list.append(id)
+        return list
 
     def select_grop_from_list_checked(self):
         wd = self.app.wd
@@ -90,7 +93,7 @@ class ContactHelper:
         else:
             wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").click()
             value_group = wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").get_attribute("value")
-        return value_group
+        return value_group, number_select_group
 
     def open_add_new(self):
         wd = self.app.wd
