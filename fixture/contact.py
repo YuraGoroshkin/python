@@ -72,16 +72,32 @@ class ContactHelper:
         self.contact_cache = None
         return value
 
+    def remove_contact_by_id_to_group(self, id):
+        # выбираем и храним id выбранного контакта
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("// *[ @ id = 'content'] / form[2] / div[3] / input").click()
+
+    def delete_contact_by_id_to_group(self, id):
+        # выбираем и храним id выбранного контакта
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        value = self.select_grop_from_list_checked()
+        wd.find_element_by_name("add").click()
+        self.contact_cache = None
+        return value
+
     def check_in_group_contact(self, number_group):
         wd = self.app.wd
         list = []
         group_id = str(int(number_group) + 2)
+        target_group = wd.find_element_by_xpath("//*[@id='right']/select/option[" + group_id + "]").get_attribute("value")
         # перейти в ту группу, в которую ранее был добавлен контакт
         wd.find_element_by_xpath("//*[@id='right']/select/option[" + group_id + "]").click()
         for element in wd.find_elements_by_name("entry"):
             id = element.find_element_by_name("selected[]").get_attribute("value")
             list.append(id)
-        return list
+        return list, target_group
 
     def select_grop_from_list_checked(self):
         wd = self.app.wd
