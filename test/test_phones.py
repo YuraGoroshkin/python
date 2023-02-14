@@ -25,8 +25,8 @@ def test_phones_on_home_page_with_db(app, db):
         from_database = contact_from_bd[i]
         i = i + 1
         assert from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(from_database)
-        assert clear_email(from_home_page.email) == clear_email(merge_email_like_on_home_page(from_database))
-        assert from_home_page.address == from_database.address
+        assert clear_space(from_home_page.email) == clear_space(merge_email_like_on_home_page(from_database))
+        assert clear_space(from_home_page.address) == clear_space(from_database.address)
         assert from_home_page.firstname == from_database.firstname
         assert from_home_page.lastname == from_database.lastname
 
@@ -44,7 +44,7 @@ def clear(s):
     return re.sub("[()  -]", "", s)
 
 
-def clear_email(s):
+def clear_space(s):
     return " ".join(s.split())
 
 
@@ -52,7 +52,7 @@ def merge_phones_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clear(x),
                                 filter(lambda x: x is not None,
-                                       [contact.home, contact.work, contact.mobile, contact.phone2]))))
+                                       [contact.home, contact.mobile, contact.work, contact.phone2]))))
 
 
 def merge_email_like_on_home_page(contact):
