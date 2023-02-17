@@ -42,6 +42,15 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+    def edit_contact_by_id(self, id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_name('edit').click()
+        self.file_group_form(new_group_date)
+        wd.find_element_by_name('update').click()
+        self.return_to_groups_page()
+        self.group_cache = None
+
     def select_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()

@@ -1,19 +1,25 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
-from random import randrange
+import random
 
 
-def test_edit_name(app, db, check_ui):
+def test_modify_group_db(app, db, check_ui):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name='for_delete'))
-    old_groups = db.get_group_list()
-    index = randrange(len(old_groups))
-    group = Group(name="+Edit_name")
-    group.id = old_groups[index].id
-    app.group.edit_group_by_index(index, group)
-    new_groups = db.get_group_list()
-    assert old_groups != new_groups
-    old_groups[index] = group
+    group_edit = Group(name='+Edit_name', footer='Edit footer', header='Edit header')
+    old_groups = sorted(db.get_group_list(), key=Group.id_or_max)
+    group = random.choice(old_groups)
+    app.group.edit_group_by_id(group.id, group_edit)
+    new_groups = sorted(db.get_group_list(), key=Group.id_or_max)
+    # сравнение через сортировку по id
+    for i in new_groups:
+        if i.id == group.id:
+            assert i.name == group_edit.name
+            assert i.footer == group_edit.footer
+            assert i.header == group_edit.header
+        # сравнение через изменение old
+        old_groups[new_groups.index(i)] = Group(name='+Edit_name', footer='Edit footer', header='Edit header', id=group.id)
+        assert(i == old_groups[new_groups.index(i)])
     if check_ui:
         assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
 
