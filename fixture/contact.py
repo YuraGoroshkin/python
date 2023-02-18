@@ -42,14 +42,19 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
-    def edit_contact_by_id(self, id):
+    def edit_contact_by_index(self, index, contact):
         wd = self.app.wd
-        self.select_contact_by_id(id)
-        wd.find_element_by_name('edit').click()
-        self.file_group_form(new_group_date)
-        wd.find_element_by_name('update').click()
-        self.return_to_groups_page()
-        self.group_cache = None
+        # select first contact
+        self.select_contact_by_index(index)
+        # +2 потому-что первый элемент на редактирование = 2 в блоке tr
+        index_pencil = str(index + 2)
+        # submit edit via xpath
+        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[' + index_pencil + ']/td[8]/a/img').click()
+        self.contact_form(contact)
+        self.select_content()
+        # select update
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
 
     def select_first_contact(self):
         wd = self.app.wd
