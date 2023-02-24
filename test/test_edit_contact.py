@@ -1,28 +1,31 @@
 # -*- coding: utf-8 -*-
+import random
 from model.contact import Contact
-from random import randrange
 
 
-def test_edit_some_contact(app, db, check_ui):
-    app.select_home()
+def test_edit_contact_db(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
-        app.contact.open_add_new()
-        app.contact.add(
-            Contact(firstname="Yura", middlename="middlename", lastname="Goroshkin", nickname="nickname", title="Title",
-                    company="Company", address="Address", telephone_home="88005553225", telephone_mobile="88005553225",
-                    telephone_work="88005553225",
-                    telephone_fax="88005553225", email="test@email.ru", email2="email2", email3="test@gemail.com",
-                    homepage="Homepage", byear="1988", ayear="1998", address2="Addres2", phone2="Phone2",
-                    notes="Notes"))
-        app.open_home_page()
-    old_contacts = db.get_contact_list()
-    index = randrange(len(old_contacts))
-    contact = Contact(firstname="correct33334", lastname="Test")
-    contact.id = old_contacts[index].id
-    app.contact.edit_contact_by_index(index, contact)
-    app.select_home()
-    new_contacts = db.get_contact_list()
-    assert len(old_contacts) == app.contact.count()
-    old_contacts[index] = contact
-    if check_ui:
-        assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+        app.contact.create_new_contact(
+            Contact(firstname='firstname_edit', lastname='lastname_edit'))
+    contact_new_edit = Contact(firstname='firstname',
+                               lastname='lastname',
+                               address='address'
+                               )
+    old_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    contact = random.choice(old_contacts)
+    app.contact.edit_contact_by_id(contact.id, contact_new_edit)
+    new_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    # сравнение
+    assert len(old_contacts) == len(new_contacts)
+
+    for ind, i in enumerate(new_contacts):
+        if i.id == contact.id:
+            assert (
+                    i.firstname == contact_new_edit.firstname and
+                    i.lastname == contact_new_edit.lastname and
+                    i.address == contact_new_edit.address
+            )
+        if check_ui:
+            for k in app.contact.get_contact_list():
+                if k.id == i.id:
+                    assert (k == i)

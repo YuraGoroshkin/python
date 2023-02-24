@@ -13,6 +13,12 @@ class ContactHelper:
         self.select_content()
         wd.find_element_by_id("container").click()
 
+    def return_to_home_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/addressbook/") and
+                len(wd.find_elements_by_xpath("//input[@value='Delete']")) > 0):
+            wd.find_element_by_link_text('home').click()
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
@@ -22,7 +28,8 @@ class ContactHelper:
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        # wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element_by_id(f"{id}").click()
 
     def delete_contact_by_index(self, index):
         wd = self.app.wd
@@ -40,6 +47,20 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         # window selection accept
         wd.switch_to.alert.accept()
+        self.contact_cache = None
+
+    def edit_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.return_to_home_page()
+        # select first contact
+        self.select_contact_by_id(id)
+        wd.find_element_by_css_selector(
+                f".center a[href='edit.php?id={id}']").click()
+        # modify fill
+        self.contact_form(contact)
+        # save
+        wd.find_element_by_xpath("//input[@value='Update']").click()
+        self.return_to_home_page()
         self.contact_cache = None
 
     def edit_contact_by_index(self, index, contact):
@@ -62,20 +83,6 @@ class ContactHelper:
 
     def edit_first_contact(self):
         self.delete_contact_by_index(0)
-
-    def edit_contact_by_index(self, index, contact):
-        wd = self.app.wd
-        # select first contact
-        self.select_contact_by_index(index)
-        # +2 потому-что первый элемент на редактирование = 2 в блоке tr
-        index_pencil = str(index + 2)
-        # submit edit via xpath
-        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[' + index_pencil + ']/td[8]/a/img').click()
-        self.contact_form(contact)
-        self.select_content()
-        # select update
-        wd.find_element_by_name("update").click()
-        self.contact_cache = None
 
     def put_contact_by_id_to_group(self, id):
         # выбираем и храним id выбранного контакта
