@@ -15,7 +15,6 @@ def test_edit_contact_db(app, db, check_ui):
     contact = random.choice(old_contacts)
     app.contact.edit_contact_by_id(contact.id, contact_new_edit)
     new_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
-    # сравнение
     assert len(old_contacts) == len(new_contacts)
 
     for ind, i in enumerate(new_contacts):
