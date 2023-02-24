@@ -75,7 +75,20 @@ class ContactHelper:
         self.select_content()
         # select update
         wd.find_element_by_name("update").click()
-        self.contact_cache = None
+        self.contact_cache = None\
+
+
+    def add_contact_to_group(self, contact, group):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_contact_by_id(contact.id)
+        self.select_group_to_add(group.id)
+        wd.find_element_by_name("add").click()
+
+    def select_group_to_add(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_name('to_group').click()
+        wd.find_element_by_xpath(f"//select[@name='to_group']/option[@value='{group_id}']").click()
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -83,6 +96,14 @@ class ContactHelper:
 
     def edit_first_contact(self):
         self.delete_contact_by_index(0)
+
+    def del_contact_by_id_from_group(self, contact, group_id):
+        wd = self.app.wd
+        self.return_to_home_page()
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_name("group").find_element_by_css_selector("[value='%s']" % group_id).click()
+        self.select_contact_by_id_css(contact.id)
+        wd.find_element_by_name('remove').click()
 
     def put_contact_by_id_to_group(self, id):
         # выбираем и храним id выбранного контакта
@@ -107,6 +128,10 @@ class ContactHelper:
         wd.find_element_by_name("add").click()
         self.contact_cache = None
         return value
+
+    def select_contact_by_id_css(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def check_in_group_contact(self, number_group):
         wd = self.app.wd
