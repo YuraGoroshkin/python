@@ -25,12 +25,15 @@ def test_add_contact_to_some_group(app, db, check_ui):
     # обозначил какой контакт будет выбран для теста
     index = randrange(len(old_contacts))
     id = old_contacts[index].id
-    # добавил контакт в случайную группу
-    value_group = app.contact.put_contact_by_id_to_group(id)
-    number_group = value_group[1]
+    # значение группы куда мы собираемся добавить контакт
+    value = app.contact.select_grop_from_list_checked()
+    check_in_bd = db.address_in_groups()
+    # добавил контакт в случайную группу <----- УБРАТЬ СЛУЧАЙНУЮ (перебором) - ту в которой нет данного контакта
+    app.contact.put_contact_by_id_to_group(id)
+    number_group = value[1]
     app.select_home()
     # связка полученная в ходе шагов теста id(contact) + group_id
-    tuple_contact_and_group = (int(id), int(value_group[0]))
+    tuple_contact_and_group = (int(id), int(value[0]))
     # все связкм полученная из БД id(contact) + group_id
     all_list_address_in_groups = db.address_in_groups()
     # поиск полученной связки, со связкой из БД - проверка что она создалась

@@ -109,10 +109,8 @@ class ContactHelper:
         # выбираем и храним id выбранного контакта
         wd = self.app.wd
         self.select_contact_by_id(id)
-        value = self.select_grop_from_list_checked()
         wd.find_element_by_name("add").click()
         self.contact_cache = None
-        return value
 
     def remove_contact_by_id_to_group(self, id):
         # выбираем и храним id выбранного контакта
