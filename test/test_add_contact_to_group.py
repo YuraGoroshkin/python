@@ -28,18 +28,22 @@ def test_add_contact_to_some_group(app, db, check_ui):
     # значение группы куда мы собираемся добавить контакт
     value = app.contact.select_grop_from_list_checked()
     check_in_bd = db.address_in_groups()
-    # добавил контакт в случайную группу <----- УБРАТЬ СЛУЧАЙНУЮ (перебором) - ту в которой нет данного контакта
-    app.contact.put_contact_by_id_to_group(id)
-    number_group = value[1]
-    app.select_home()
     # связка полученная в ходе шагов теста id(contact) + group_id
     tuple_contact_and_group = (int(id), int(value[0]))
-    # все связкм полученная из БД id(contact) + group_id
-    all_list_address_in_groups = db.address_in_groups()
-    # поиск полученной связки, со связкой из БД - проверка что она создалась
-    assert tuple_contact_and_group in all_list_address_in_groups
-    if check_ui:
-        # переход в ту группу, куда был добавлен контакт и проверка наличия по id того контакта в группе
-        id_list_contact = app.contact.check_in_group_contact(number_group)
-        assert id in id_list_contact
+    i = check_in_bd is not tuple_contact_and_group
+    if i == False :
+        # добавил контакт в группу
+        app.contact.put_contact_by_id_to_group(id)
+        number_group = value[1]
+        app.select_home()
+        # все связкм полученная из БД id(contact) + group_id
+        all_list_address_in_groups = db.address_in_groups()
+        # поиск полученной связки, со связкой из БД - проверка что она создалась
+        assert tuple_contact_and_group in all_list_address_in_groups
+        if check_ui:
+            # переход в ту группу, куда был добавлен контакт и проверка наличия по id того контакта в группе
+            id_list_contact = app.contact.check_in_group_contact(number_group)
+            assert id in id_list_contact
+    else:
+        raise ValueError("Контакт " + str(id) + " уже нахродится в группе " + str(value[0]))
 
