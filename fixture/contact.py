@@ -105,6 +105,14 @@ class ContactHelper:
         self.select_contact_by_id_css(contact.id)
         wd.find_element_by_name('remove').click()
 
+    def delet_contact_by_id_from_group(self, contact, group_id):
+        wd = self.app.wd
+        self.return_to_home_page()
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_name("group").find_element_by_css_selector("[value='%s']" % group_id).click()
+        self.select_contact_by_id_css(contact)
+        wd.find_element_by_name('remove').click()
+
     def put_contact_by_id_to_group(self, id):
         # выбираем и храним id выбранного контакта
         wd = self.app.wd
