@@ -1,6 +1,6 @@
 pytest
 pytest_bdd
-selenium==3.141.0
+selenium==2.45.0
 jsonpickle
 pony
 pymysql
