@@ -36,10 +36,11 @@ def test_add_contact_to_some_group(app, db, check_ui):
         group_id = int(value[0])
         app.contact.delet_contact_by_id_from_group(contact, group_id)
         app.open_home_page()
+    app.contact.select_grop_from_list(value[1])
     # добавил контакт в группу
     app.contact.put_contact_by_id_to_group(id)
     number_group = value[1]
-    app.select_home()
+    app.open_home_page()
     # все связкм полученная из БД id(contact) + group_id
     all_list_address_in_groups = db.address_in_groups()
     # поиск полученной связки, со связкой из БД - проверка что она создалась

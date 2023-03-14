@@ -163,6 +163,13 @@ class ContactHelper:
             value_group = wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").get_attribute("value")
         return value_group, number_select_group
 
+    def select_grop_from_list(self, number_select_group):
+        wd = self.app.wd
+        if number_select_group == "0":
+            wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option").click()
+        else:
+            wd.find_element_by_xpath("//*[@id='content']/form[2]/div[4]/select/option[" + number_select_group + "]").click()
+
     def open_add_new(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("firstname")) > 0):
