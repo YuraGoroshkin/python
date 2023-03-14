@@ -31,35 +31,23 @@ def test_add_contact_to_some_group(app, db, check_ui):
     # связка полученная в ходе шагов теста id(contact) + group_id
     tuple_contact_and_group = (int(id), int(value[0]))
     i = tuple_contact_and_group in check_in_bd
-    if i == False :
-        # добавил контакт в группу
-        app.contact.put_contact_by_id_to_group(id)
-        number_group = value[1]
-        app.select_home()
-        # все связкм полученная из БД id(contact) + group_id
-        all_list_address_in_groups = db.address_in_groups()
-        # поиск полученной связки, со связкой из БД - проверка что она создалась
-        assert tuple_contact_and_group in all_list_address_in_groups
-        if check_ui:
-            # переход в ту группу, куда был добавлен контакт и проверка наличия по id того контакта в группе
-            id_list_contact = app.contact.check_in_group_contact(number_group)
-            assert id in id_list_contact
-    else:
+    if i == True :
         contact = id
         group_id = int(value[0])
         app.contact.delet_contact_by_id_from_group(contact, group_id)
         app.open_home_page()
-        # добавил контакт в группу
-        app.contact.put_contact_by_id_to_group(id)
-        number_group = value[1]
-        app.select_home()
-        # все связкм полученная из БД id(contact) + group_id
-        all_list_address_in_groups = db.address_in_groups()
-        # поиск полученной связки, со связкой из БД - проверка что она создалась
-        assert tuple_contact_and_group in all_list_address_in_groups
-        if check_ui:
-            # переход в ту группу, куда был добавлен контакт и проверка наличия по id того контакта в группе
-            id_list_contact = app.contact.check_in_group_contact(number_group)
-            assert id in id_list_contact
+    # добавил контакт в группу
+    app.contact.put_contact_by_id_to_group(id)
+    number_group = value[1]
+    app.select_home()
+    # все связкм полученная из БД id(contact) + group_id
+    all_list_address_in_groups = db.address_in_groups()
+    # поиск полученной связки, со связкой из БД - проверка что она создалась
+    assert tuple_contact_and_group in all_list_address_in_groups
+    if check_ui:
+        # переход в ту группу, куда был добавлен контакт и проверка наличия по id того контакта в группе
+        id_list_contact = app.contact.check_in_group_contact(number_group)
+        assert id in id_list_contact
+
 
 

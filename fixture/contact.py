@@ -75,7 +75,7 @@ class ContactHelper:
         self.select_content()
         # select update
         wd.find_element_by_name("update").click()
-        self.contact_cache = None\
+        self.contact_cache = None
 
 
     def add_contact_to_group(self, contact, group):
